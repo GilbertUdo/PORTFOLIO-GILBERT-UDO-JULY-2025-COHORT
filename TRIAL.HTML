@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+  <style>/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Navbar */
+header {
+  background: #111;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10%;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.nav-links li a:hover {
+  color: #ff9800;
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  height: 90vh;
+  background: linear-gradient(to right, #000428, #004e92);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.hero h1 span {
+  color: #ff9800;
+}
+.hero .btn,
+.hero .btn-outline {
+  margin: 10px;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.btn {
+  background: #ff9800;
+  color: black;
+}
+.btn-outline {
+  border: 2px solid #ff9800;
+  color: #ff9800;
+}
+
+/* Sections */
+.section {
+  padding: 60px 10%;
+  text-align: center;
+}
+.bg-light {
+  background: #f5f5f5;
+}
+.timeline {
+  list-style: none;
+  margin-top: 20px;
+}
+.timeline li {
+  margin-bottom: 20px;
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+.skill-card {
+  background: #111;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+.skill-card:hover {
+  transform: scale(1.1);
+}
+
+/* Contact */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: auto;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.socials {
+  margin-top: 20px;
+}
+.socials a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #004e92;
+  font-weight: bold;
+}
+
+/* Hire */
+.hire {
+  background: #004e92;
+  color: white;
+  padding: 60px 10%;
+}
+.hire .btn {
+  background: #ff9800;
+  color: black;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: #111;
+  color: white;
+  padding: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #111;
+    position: absolute;
+    top: 60px;
+    right: 10%;
+    width: 200px;
+    padding: 10px;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">MyPortfolio</h2>
+      <ul class="nav-links">
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#hire">Hire Me</a></li>
+      </ul>
+      <button class="menu-toggle">☰</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Hello, I'm <span>Your Name</span></h1>
+      <p>Aspiring Software Developer | Web Designer | IT Enthusiast</p>
+      <a href="#hire" class="btn">Hire Me</a>
+      <a href="cv.pdf" download class="btn-outline">Download CV</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      I am a passionate tech professional with strong skills in web development,
+      data analytics, and IT support. I enjoy solving problems, creating
+      interactive applications, and collaborating with teams to deliver
+      impactful digital solutions.
+    </p>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="section bg-light">
+    <h2>Education</h2>
+    <ul class="timeline">
+      <li>
+        <h3>Diploma in Computer Science</h3>
+        <p>Riara University, 2023 - Present</p>
+      </li>
+      <li>
+        <h3>Certificate in Information Technology</h3>
+        <p>Huduma Kenya ICT Training, 2021 - 2022</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">HTML & CSS</div>
+      <div class="skill-card">JavaScript</div>
+      <div class="skill-card">React</div>
+      <div class="skill-card">Python</div>
+      <div class="skill-card">Data Analytics</div>
+      <div class="skill-card">IT Support</div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section bg-light">
+    <h2>Contact Me</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+    <div class="socials">
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+      <a href="#">Twitter</a>
+    </div>
+  </section>
+
+  <!-- Hire Me -->
+  <section id="hire" class="section hire">
+    <h2>Hire Me</h2>
+    <p>
+      I am open to exciting opportunities in software development, data
+      analytics, and IT. Let’s work together!
+    </p>
+    <a href="mailto:yourmail@example.com" class="btn">Get in Touch</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Your Name | Designed with ❤️</p>
+  </footer>
+  <script>// Toggle mobile menu
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
+
+// Contact form submission (basic interaction)
+const form = document.querySelector(".contact-form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Thank you for reaching out! I’ll get back to you soon.");
+  form.reset();
+});
+</script>
+</body>
+</html>

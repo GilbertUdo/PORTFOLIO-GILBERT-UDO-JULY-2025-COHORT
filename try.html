@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphing Calculator</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      width: 350px;
+    }
+    .display {
+      width: 100%;
+      height: 60px;
+      font-size: 20px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      background: #f4f4f9;
+      text-align: right;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #eee;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #ddd;
+    }
+    .equal { background: linear-gradient(135deg, #43e97b, #38f9d7); color: white; }
+    .graph { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+    #graph {
+      margin-top: 15px;
+      width: 100%;
+      height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" class="display" readonly>
+
+    <!-- Calculator Buttons -->
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">÷</button>
+      <button onclick="append('^')">^</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">×</button>
+      <button onclick="append('sqrt(')">√</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">-</button>
+      <button onclick="append('log(')">log</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="append('+')">+</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
+
+      <button onclick="append('sin(')">sin</button>
+      <button onclick="append('cos(')">cos</button>
+      <button onclick="append('tan(')">tan</button>
+      <button onclick="append('pi')">π</button>
+      <button onclick="append('e')">e</button>
+
+      <button onclick="clearDisplay()">C</button>
+      <button class="equal" onclick="calculate()">=</button>
+      <button class="graph" onclick="plotGraph()">Graph</button>
+    </div>
+
+    <!-- Graph Output -->
+    <div id="graph"></div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+
+    // Add text to display
+    function append(value) {
+      display.value += value;
+    }
+
+    // Clear display
+    function clearDisplay() {
+      display.value = "";
+      document.getElementById("graph").innerHTML = "";
+    }
+
+    // Evaluate math expression
+    function calculate() {
+      try {
+        let expr = prepareExpression(display.value);
+        let result = Function("return " + expr)();
+        display.value = result;
+      } catch (e) {
+        display.value = "Error";
+      }
+    }
+
+    // Prepare expression (replace with Math. functions)
+    function prepareExpression(expr) {
+      return expr
+        .replace(/sin/gi, "Math.sin")
+        .replace(/cos/gi, "Math.cos")
+        .replace(/tan/gi, "Math.tan")
+        .replace(/sqrt/gi, "Math.sqrt")
+        .replace(/log/gi, "Math.log")
+        .replace(/pi/gi, "Math.PI")
+        .replace(/\be\b/gi, "Math.E")
+        .replace(/\^/g, "**");
+    }
+
+    // Plot function
+    function plotGraph() {
+      let expr = display.value;
+      if (!expr.includes("x")) {
+        alert("Use variable x for graphing, e.g. sin(x) or x^2");
+        return;
+      }
+
+      let xValues = [], yValues = [];
+      let safeExpr = prepareExpression(expr);
+
+      for (let x = -10; x <= 10; x += 0.1) {
+        try {
+          let y = Function("x", "return " + safeExpr)(x);
+          if (isFinite(y)) {
+            xValues.push(x);
+            yValues.push(y);
+          }
+        } catch {}
+      }
+
+      Plotly.newPlot("graph", [{
+        x: xValues,
+        y: yValues,
+        mode: "lines",
+        line: {color: "blue", width: 2}
+      }], {
+        title: "Graph of " + expr,
+        xaxis: {title: "x"},
+        yaxis: {title: "y"},
+        plot_bgcolor: "#f9f9f9",
+        paper_bgcolor: "#fff"
+      });
+    }
+  </script>
+</body>
+</html>
